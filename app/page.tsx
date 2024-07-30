@@ -26,11 +26,20 @@ const Home = () => {
   const [podsHealth, setPodsHealth] = useState<PodHealth[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [allSystemsOperational, setAllSystemsOperational] = useState(true);
+  const [failedPodsCount, setFailedPodsCount] = useState(0);
 
   const fetchPodsHealth = async () => {
     try {
       const response = await axios.get<PodHealth[]>("/api/pods-health");
       setPodsHealth(response.data);
+      setFailedPodsCount(0);
+      response.data.forEach((pod) => {
+        if (pod.status !== "Ready") {
+          setAllSystemsOperational(false);
+          setFailedPodsCount((prev) => prev + 1);
+        }
+      });
     } catch (err) {
       setError("Failed to fetch pod health");
     } finally {
@@ -50,8 +59,21 @@ const Home = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="mx-40 px-10 w-100">
-      <h1 className="text-2xl text-center my-10">Kubernetes Pod Health</h1>
+    <div className="mx-40 mb-10 px-10 w-100">
+      <div className="flex justify-between items-center mx-10">
+        <h1 className="text-2xl font-semibold text-center my-10">
+          Kubernetes Pod Health
+        </h1>
+        {allSystemsOperational ? (
+          <div className="bg-green-500 h-fit text-gray-100 text-xl p-4 rounded-md">
+            All Systems Operational
+          </div>
+        ) : (
+          <div className="bg-red-500 h-fit text-gray-100 text-xl p-4 rounded-md">
+            {failedPodsCount} Deployments Failed
+          </div>
+        )}
+      </div>
       <div className="flex flex-col">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
