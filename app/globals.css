@@ -18,9 +18,15 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  /* background: linear-gradient(to bottom, */
+  /*     transparent, */
+  /*     rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb)); */
+}
+
+body {
+  @apply bg-gray-200;
+  @apply flex justify-center items-center;
+  @apply min-h-screen;
 }
 
 @layer utilities {
@@ -32,4 +38,9 @@ body {
 .bg-warning-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(251 242 222 / var(--tw-bg-opacity));
+}
+
+.border-warning-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(247 228 190 / var(--tw-border-opacity));
 }

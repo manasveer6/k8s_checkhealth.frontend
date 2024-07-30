@@ -58,34 +58,3 @@ export const listDeploymentsStatus = async () => {
     throw err;
   }
 };
-
-export const listDeployments = async () => {
-  try {
-    const res = await appsV1Api.listDeploymentForAllNamespaces();
-    const brr = res.body.items.map((deployment) => {
-      const name = deployment.metadata?.name || "";
-      const namespace = deployment.metadata?.namespace || "";
-      const replicas = deployment.status?.replicas || 0;
-      const readyReplicas = deployment.status?.readyReplicas || 0;
-      const availableReplicas = deployment.status?.availableReplicas || 0;
-      const status =
-        readyReplicas === replicas && availableReplicas === replicas
-          ? "Ready"
-          : "Not Ready";
-
-      return {
-        name,
-        namespace,
-        replicas,
-        readyReplicas,
-        availableReplicas,
-        status,
-      };
-    });
-    console.log(brr);
-    return brr;
-  } catch (err) {
-    console.error("Error fetching deployments:", err);
-    throw err;
-  }
-};

@@ -1,10 +1,6 @@
 // app/api/pods-health/route.ts
 import { NextResponse } from "next/server";
-import {
-  checkPodsHealth,
-  listDeployments,
-  listDeploymentsStatus,
-} from "@/lib/kubernetes";
+import { listDeploymentsStatus } from "@/lib/kubernetes";
 
 export async function GET() {
   try {
