@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { config } from "@/globalConfig";
 
 interface PodHealth {
   name: string;
@@ -31,7 +32,9 @@ const Home = () => {
 
   const fetchPodsHealth = async () => {
     try {
-      const response = await axios.get<PodHealth[]>("/api/pods-health");
+      const response = await axios.get<PodHealth[]>(
+        `${config.API_URL}/api/pods-health`,
+      );
       setPodsHealth(response.data);
       setFailedPodsCount(0);
       response.data.forEach((pod) => {
