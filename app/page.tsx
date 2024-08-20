@@ -35,6 +35,10 @@ const Home = () => {
       const response = await axios.get<PodHealth[]>(
         `${config.API_URL}/api/pods-health`,
       );
+      if (response.data.length === 0) {
+        console.log("Couldn't fetch pods health, trying again in 1min...");
+        return;
+      }
       setPodsHealth(response.data);
       setFailedPodsCount(0);
       response.data.forEach((pod) => {
