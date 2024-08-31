@@ -57,7 +57,7 @@ const Home = () => {
   useEffect(() => {
     fetchPodsHealth();
 
-    const intervalId = setInterval(fetchPodsHealth, 10000);
+    const intervalId = setInterval(fetchPodsHealth, 60000); // 1min
 
     return () => clearInterval(intervalId);
   }, []);
