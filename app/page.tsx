@@ -16,9 +16,15 @@ const TableRow = ({ pod }: { pod: PodHealth }) => {
     <tr
       className={`border-b ${pod.status === "Ready" ? "border-neutral-100 bg-neutral-50 text-neutral-800" : "border-warning-200 bg-warning-100 text-neutral-800"} `}
     >
-      <td className="whitespace-nowrap px-6 py-4 font-medium">{pod.name}</td>
-      <td className="whitespace-nowrap px-6 py-4">{pod.namespace}</td>
-      <td className="whitespace-nowrap px-6 py-4">{pod.status}</td>
+      <td className="whitespace-normal sm:whitespace-nowrap px-2 sm:px-6 py-2 sm:py-4 text-sm sm:text-base font-medium">
+        {pod.name}
+      </td>
+      <td className="whitespace-normal sm:whitespace-nowrap px-2 sm:px-6 py-2 sm:py-4 text-sm sm:text-base">
+        {pod.namespace}
+      </td>
+      <td className="whitespace-normal sm:whitespace-nowrap px-2 sm:px-6 py-2 sm:py-4 text-sm sm:text-base">
+        {pod.status}
+      </td>
     </tr>
   );
 };
@@ -66,17 +72,17 @@ const Home = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="mx-40 mb-10 px-10 w-100">
-      <div className="flex justify-between items-center mx-10">
-        <h1 className="text-2xl font-semibold text-center my-10">
+    <div className="mx-4 sm:mx-10 md:mx-20 lg:mx-40 mb-10 px-4 sm:px-6 lg:px-10 w-full">
+      <div className="flex flex-col sm:flex-row justify-between items-center mx-4 sm:mx-10">
+        <h1 className="text-xl sm:text-2xl font-semibold text-center my-4 sm:my-10">
           Kubernetes Pod Health
         </h1>
         {allSystemsOperational ? (
-          <div className="bg-green-500 h-fit text-gray-100 text-xl p-4 rounded-md">
+          <div className="bg-green-500 text-gray-100 text-base sm:text-xl p-3 sm:p-4 rounded-md mt-2 sm:mt-0">
             All Systems Operational
           </div>
         ) : (
-          <div className="bg-red-500 h-fit text-gray-100 text-xl p-4 rounded-md">
+          <div className="bg-red-500 text-gray-100 text-base sm:text-xl p-3 sm:p-4 rounded-md mt-2 sm:mt-0">
             {failedPodsCount} Deployments Failed
           </div>
         )}
@@ -85,16 +91,16 @@ const Home = () => {
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div className="overflow-hidden">
-              <table className="w-[80vw] text-center text-sm font-light text-surface dark:text-white">
+              <table className="w-full text-center text-sm font-light text-surface dark:text-white">
                 <thead className="border-b border-neutral-200 font-medium dark:border-white/10">
                   <tr>
-                    <th scope="col" className="px-6 py-4">
+                    <th scope="col" className="px-2 sm:px-6 py-2 sm:py-4">
                       Name
                     </th>
-                    <th scope="col" className="px-6 py-4">
+                    <th scope="col" className="px-2 sm:px-6 py-2 sm:py-4">
                       Namespace
                     </th>
-                    <th scope="col" className="px-6 py-4">
+                    <th scope="col" className="px-2 sm:px-6 py-2 sm:py-4">
                       Status
                     </th>
                   </tr>
